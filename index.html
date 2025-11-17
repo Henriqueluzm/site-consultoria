@@ -260,34 +260,42 @@
 
 /* pilha de 3 imagens sobrepostas no estilo do PPT */
     .proj-images{
-      display:flex;
-      align-items:flex-start;
-      justify-content:flex-end;  /* empurra as imagens mais para a direita */
-      padding:40px 0;
-      max-width:100%;
-      overflow:hidden;
+     position: relative;
+     height: 340px;   /* controla exatamente a área da "escada" */
+     display: flex;
+     justify-content: center;
+     align-items: center;
     }
 
     .proj-images img{
-      width:50%;                 /* menor que antes */
-      max-width:340px;           /* limite mais baixo no tamanho absoluto */
-      border-radius:12px;
-      border:1px solid var(--border);
-      display:block;
-      background:#000;
-      box-shadow:0 10px 30px rgba(0,0,0,0.4);
+     position: absolute;
+     width: 380px;        /* tamanho base */
+     max-width: 100%;
+     border-radius: 12px;
+     border: 1px solid var(--border);
+     background: #000;
+     box-shadow: 0 10px 30px rgba(0,0,0,0.35);
     }
 
-    /* sobreposição mais suave, para não invadir o texto */
-    .proj-images img + img{
-      margin-left:-80px;
+    /* ---- IMAGEM 1 (atrás, esquerda, mais alta) ---- */
+    .proj-images img:nth-child(1){
+     top: 0px;
+     left: 0px;
+     z-index: 1;
     }
 
+    /* ---- IMAGEM 2 (meio, centralizada, altura média) ---- */
     .proj-images img:nth-child(2){
-      margin-top:18px;
+     top: 40px;
+     left: 80px;
+     z-index: 2;
     }
+
+    /* ---- IMAGEM 3 (frente, direita, mais baixa) ---- */
     .proj-images img:nth-child(3){
-      margin-top:36px;
+     top: 80px;
+     left: 160px;
+     z-index: 3;
     }
 
     /* Abordagem */
