@@ -251,17 +251,26 @@
       align-items:start;
     }
     /* pilha de 3 imagens sobrepostas no estilo do PPT */
+    .projects-layout{
+  display:grid;
+  grid-template-columns:minmax(0, 1.1fr) minmax(0, 1fr);
+  gap:24px;
+  align-items:start;
+}
+
+/* pilha de 3 imagens sobrepostas no estilo do PPT */
     .proj-images{
       display:flex;
       align-items:flex-start;
-      justify-content:center;
+      justify-content:flex-end;  /* empurra as imagens mais para a direita */
       padding:40px 0;
-      gap:0;
+      max-width:100%;
+      overflow:hidden;
     }
 
     .proj-images img{
-      width:60%;
-      max-width:380px;
+      width:50%;                 /* menor que antes */
+      max-width:340px;           /* limite mais baixo no tamanho absoluto */
       border-radius:12px;
       border:1px solid var(--border);
       display:block;
@@ -269,8 +278,9 @@
       box-shadow:0 10px 30px rgba(0,0,0,0.4);
     }
 
+    /* sobreposição mais suave, para não invadir o texto */
     .proj-images img + img{
-      margin-left:-120px;
+      margin-left:-80px;
     }
 
     .proj-images img:nth-child(2){
