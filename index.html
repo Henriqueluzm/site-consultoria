@@ -72,7 +72,7 @@
       display:inline-flex;
       align-items:center;
       justify-content:space-between;
-      width:78px; /* Levemente ajustado */
+      width:78px;
       padding:4px;
       border-radius:999px;
       border:1px solid rgba(148,163,184,0.6);
@@ -103,23 +103,19 @@
       position:absolute;
       top:3px;
       bottom:3px;
-      width:34px; /* Reduzido para caber melhor */
+      width:34px;
       border-radius:999px;
       background:var(--blue);
       transition:transform 200ms ease, background 200ms ease;
     }
-    .lang-switch.is-pt .lang-thumb{
-      transform:translateX(0); /* Posição Esquerda */
-    }
-    .lang-switch.is-en .lang-thumb{
-      transform:translateX(34px); /* Posição Direita (Width do switch - padding*2 - width thumb aprox) */
-    }
+    .lang-switch.is-pt .lang-thumb{ transform:translateX(0); }
+    .lang-switch.is-en .lang-thumb{ transform:translateX(34px); }
     .lang-switch.is-pt .lang-pt{ opacity:1; }
     .lang-switch.is-pt .lang-en{ opacity:0.5; }
     .lang-switch.is-en .lang-pt{ opacity:0.5; }
     .lang-switch.is-en .lang-en{ opacity:1; }
 
-    /* SEÇÕES */
+    /* SEÇÕES GERAIS */
     section{
       --bg: var(--black);
       --fg: var(--ink-light);
@@ -169,59 +165,76 @@
 
     p{ line-height:1.6; font-size:15px; margin:0 0 8px; }
 
-    /* HERO */
-    .hero{
-      display:grid;
-      grid-template-columns:1.1fr 1fr;
-      min-height:72vh;
-      align-items:stretch;
-    }
-    .hero-copy{
-      padding:96px 5vw 48px 0; /* padding right ajustado */
-      display:grid;
-      align-content:center;
-      gap:16px;
-    }
-    .hero-copy h1{
-      font-size:clamp(30px,4.5vw,52px);
-      margin:0;
-    }
-    .hero-copy p.lead{
-      font-size:17px;
-      max-width:52ch;
-    }
-    .hero-copy p.small{
-      font-size:14px;
-      opacity:.9;
-      max-width:52ch;
-    }
-    .cta{
-      display:inline-block;
-      margin-top:12px;
-      padding:12px 20px;
-      border-radius:999px;
-      background:var(--blue);
-      color:#111827;
-      font-weight:700;
-      text-decoration:none;
-      border:1px solid rgba(255,255,255,0.18);
-      font-size:14px;
+    /* --- HERO (Split Screen - Estilo EloGroup) --- */
+    #inicio {
+        padding: 0; /* Remove padding da seção para a imagem encostar nas bordas */
+        border-top: none;
+        overflow: hidden;
     }
 
-    .hero-visual{
-      position:relative;
-      overflow:hidden;
-      background:var(--black);
-      border-radius: var(--radius); /* Opcional: manter bordas arredondadas ou remover para "encontrar bordas" */
-      /* Para encontrar as bordas da seção, removemos margin/radius se desejado, 
-         mas como está dentro do .wrap, ele respeita o grid. 
-         Vamos garantir que a imagem cubra 100% da célula do grid. */
-      background-image: url('assets/alternada1.jpg');
-      background-size: cover;
-      background-position: center;
-      min-height: 400px; /* Altura mínima garantida */
+    .hero-split {
+        display: grid;
+        /* Divide a tela exatamente ao meio (50% / 50%) */
+        grid-template-columns: 1fr 1fr;
+        /* Altura mínima de 90% da viewport para o texto ficar "mais baixo" (centralizado verticalmente numa área grande) */
+        min-height: 90vh; 
+        width: 100%;
     }
-    
+
+    .hero-copy {
+        /* Padding esquerdo maior para simular a margem do container .wrap */
+        padding: 0 10% 0 12%; 
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* Centraliza o texto verticalmente */
+        background: var(--black);
+        z-index: 2;
+    }
+
+    .hero-copy h1 {
+        font-size: clamp(32px, 4.5vw, 60px);
+        margin-bottom: 24px;
+        line-height: 1.1;
+    }
+
+    .hero-copy p.lead {
+        font-size: 18px;
+        max-width: 55ch;
+        margin-bottom: 16px;
+    }
+
+    .hero-copy p.small {
+        font-size: 14px;
+        opacity: 0.8;
+        max-width: 55ch;
+        margin-bottom: 32px;
+    }
+
+    .cta {
+        display: inline-block;
+        width: fit-content; /* O botão não estica mais */
+        padding: 14px 32px;
+        border-radius: 999px;
+        background: var(--blue);
+        color: #111827;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 15px;
+        border: none;
+    }
+
+    .hero-visual {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: var(--black);
+        background-image: url('assets/alternada1.jpg');
+        background-size: cover;
+        background-position: center;
+        /* Removemos o border-radius para ser quadrado (borda a borda) */
+        border-radius: 0; 
+    }
+
     /* GRID / CARDS */
     .grid{
       display:grid;
@@ -285,7 +298,6 @@
       align-items:start;
     }
 
-    /* Carrossel de Projetos (Antigo estilo da Hero) */
     .proj-images{
       position: relative;
       height: 400px;
@@ -384,9 +396,19 @@
     a[href^="tel"], a[href^="mailto"]{ text-decoration:none; }
 
     @media (max-width:900px){
-      .hero{ grid-template-columns:1fr; }
-      .hero-copy{ padding-right: 0; }
-      .hero-visual{ min-height:40vh; }
+      /* Ajuste Hero Mobile: Texto em cima, imagem em baixo */
+      .hero-split {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto 40vh;
+      }
+      .hero-copy {
+          padding: 60px 20px;
+      }
+      .hero-visual {
+          height: 100%;
+          min-height: 40vh;
+      }
+
       .projects-layout, .approach-layout, .contact{ grid-template-columns:1fr; }
       #abordagem .approach-layout .grid{ justify-content:flex-start; }
       .nav{ flex-wrap:wrap; gap:8px; }
@@ -424,7 +446,7 @@
   </header>
 
   <section id="inicio">
-    <div class="wrap hero">
+    <div class="hero-split">
       <div class="hero-copy">
         <h1 data-i18n="hero.title">Consultoria para o mundo dos dados</h1>
         <p class="lead" data-i18n="hero.lead">
@@ -668,7 +690,7 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // ANIMAÇÃO DE NÚMEROS (INDICADORES)
+    // ANIMAÇÃO DE NÚMEROS
     const counters = document.querySelectorAll('.num');
     const ease = t => 1 - Math.pow(1 - t, 4);
     
@@ -676,7 +698,7 @@
       const target = +el.dataset.count;
       const prefix = el.dataset.prefix || '';
       const suffix = el.dataset.suffix || '';
-      const dur = 2500; // Mais devagar (2.5s)
+      const dur = 2500;
       const start = performance.now();
 
       function tick(now){
@@ -693,10 +715,8 @@
       const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if(e.isIntersecting){
-            // Entrou na tela: anima
             e.target.querySelectorAll('.num').forEach(n => animateCount(n));
           } else {
-            // Saiu da tela: reseta para 0 para animar novamente depois
             e.target.querySelectorAll('.num').forEach(n => {
               const prefix = n.dataset.prefix || '';
               const suffix = n.dataset.suffix || '';
@@ -704,18 +724,17 @@
             });
           }
         });
-      }, { threshold: 0.25 }); // Threshold ajustado
+      }, { threshold: 0.25 });
       io.observe(stats);
     }
 
-    // CARROSSEL DE PROJETOS (Antigo carrossel da Hero)
+    // CARROSSEL DE PROJETOS
     const PROJ_SLIDES = [
       'assets/sobre1.jpg',
       'assets/sobre2.jpg',
       'assets/sobre3.jpg'
     ];
 
-    // Pré-carregamento das imagens
     PROJ_SLIDES.forEach(src => { const img = new Image(); img.src = src; });
 
     const projVisual = document.querySelector('.proj-images');
@@ -724,13 +743,9 @@
 
     if (projVisual) {
       const slides = projVisual.querySelectorAll('.slide');
-      
-      // Configurar backgrounds
       slides.forEach((s, i) => {
         if(PROJ_SLIDES[i]) s.style.backgroundImage = `url('${PROJ_SLIDES[i]}')`;
       });
-      
-      // Mostrar o primeiro
       slides[0].classList.add('show');
 
       const INTERVAL_MS = 3000;
