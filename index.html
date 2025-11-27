@@ -72,15 +72,15 @@
       display:inline-flex;
       align-items:center;
       justify-content:space-between;
-      width:80px;
-      padding:4px 6px;
+      width:78px; /* Levemente ajustado */
+      padding:4px;
       border-radius:999px;
       border:1px solid rgba(148,163,184,0.6);
       background:rgba(15,23,42,0.9);
       cursor:pointer;
       font-size:14px;
       line-height:1;
-      gap:6px;
+      gap:0;
       overflow:hidden;
     }
     .lang-flag{
@@ -101,30 +101,29 @@
     }
     .lang-thumb{
       position:absolute;
-      top:2px;
-      bottom:2px;
-      width:38px;
+      top:3px;
+      bottom:3px;
+      width:34px; /* Reduzido para caber melhor */
       border-radius:999px;
       background:var(--blue);
       transition:transform 200ms ease, background 200ms ease;
     }
     .lang-switch.is-pt .lang-thumb{
-      transform:translateX(0);
+      transform:translateX(0); /* Posição Esquerda */
     }
     .lang-switch.is-en .lang-thumb{
-      transform:translateX(36px);
+      transform:translateX(34px); /* Posição Direita (Width do switch - padding*2 - width thumb aprox) */
     }
     .lang-switch.is-pt .lang-pt{ opacity:1; }
     .lang-switch.is-pt .lang-en{ opacity:0.5; }
     .lang-switch.is-en .lang-pt{ opacity:0.5; }
     .lang-switch.is-en .lang-en{ opacity:1; }
 
-    /* SEÇÕES (alternando preto/branco) */
+    /* SEÇÕES */
     section{
       --bg: var(--black);
       --fg: var(--ink-light);
       --border: rgba(255,255,255,0.15);
-
       padding:80px 20px;
       background:var(--bg);
       color:var(--fg);
@@ -178,7 +177,7 @@
       align-items:stretch;
     }
     .hero-copy{
-      padding:96px 5vw 48px;
+      padding:96px 5vw 48px 0; /* padding right ajustado */
       display:grid;
       align-content:center;
       gap:16px;
@@ -213,20 +212,16 @@
       position:relative;
       overflow:hidden;
       background:var(--black);
+      border-radius: var(--radius); /* Opcional: manter bordas arredondadas ou remover para "encontrar bordas" */
+      /* Para encontrar as bordas da seção, removemos margin/radius se desejado, 
+         mas como está dentro do .wrap, ele respeita o grid. 
+         Vamos garantir que a imagem cubra 100% da célula do grid. */
+      background-image: url('assets/alternada1.jpg');
+      background-size: cover;
+      background-position: center;
+      min-height: 400px; /* Altura mínima garantida */
     }
-    .hero-visual .slide{
-      position:absolute;
-      inset:0;
-      background-size:cover;
-      background-position:center;
-      filter:grayscale(10%) contrast(108%);
-      opacity:0;
-      transition:opacity 400ms ease;
-    }
-    .hero-visual .slide.show{
-      opacity:0.7;
-    }
-
+    
     /* GRID / CARDS */
     .grid{
       display:grid;
@@ -239,14 +234,8 @@
       border-radius:var(--radius);
       padding:18px;
     }
-    .card h3{
-      margin:4px 0 6px;
-      font-size:17px;
-    }
-    .card p{
-      margin:0;
-      font-size:14px;
-    }
+    .card h3{ margin:4px 0 6px; font-size:17px; }
+    .card p{ margin:0; font-size:14px; }
 
     /* Indicadores */
     .stats{
@@ -267,16 +256,8 @@
       color:var(--blue);
       letter-spacing:-0.03em;
     }
-    .stat .label{
-      margin-top:6px;
-      font-weight:600;
-      font-size:14px;
-    }
-    .stat .desc{
-      margin-top:4px;
-      font-size:13px;
-      opacity:.9;
-    }
+    .stat .label{ margin-top:6px; font-weight:600; font-size:14px; }
+    .stat .desc{ margin-top:4px; font-size:13px; opacity:.9; }
 
     /* Serviços */
     .service-card{
@@ -294,9 +275,7 @@
       margin-top:4px;
       transition:max-height 220ms ease;
     }
-    .service-card:hover .service-body{
-      max-height:120px;
-    }
+    .service-card:hover .service-body{ max-height:120px; }
 
     /* Projetos */
     .projects-layout{
@@ -306,38 +285,25 @@
       align-items:start;
     }
 
+    /* Carrossel de Projetos (Antigo estilo da Hero) */
     .proj-images{
       position: relative;
-      height: 340px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .proj-images img{
-      position: absolute;
-      width: 380px;
-      max-width: 100%;
-      border-radius: 12px;
-      border: 1px solid var(--border);
+      height: 400px;
+      border-radius: var(--radius);
+      overflow: hidden;
       background: #000;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
-
-    .proj-images img:nth-child(1){
-      top: -120px;
-      left: 40px;
-      z-index: 1;
+    .proj-images .slide{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      transition:opacity 800ms ease;
     }
-    .proj-images img:nth-child(2){
-      top: -20px;
-      left: 140px;
-      z-index: 2;
-    }
-    .proj-images img:nth-child(3){
-      top: 120px;
-      left: 240px;
-      z-index: 3;
+    .proj-images .slide.show{
+      opacity:1;
     }
 
     /* Abordagem */
@@ -361,9 +327,7 @@
       background:transparent;
       border:1px solid currentColor;
     }
-    #abordagem .approach-layout .card p{
-      display:none;
-    }
+    #abordagem .approach-layout .card p{ display:none; }
 
     /* Contatos */
     .contact{
@@ -383,11 +347,7 @@
       border-radius:var(--radius);
       padding:16px;
     }
-    label{
-      display:block;
-      font-size:13px;
-      margin:8px 0 4px;
-    }
+    label{ display:block; font-size:13px; margin:8px 0 4px; }
     input, textarea{
       width:100%;
       padding:10px 12px;
@@ -398,10 +358,7 @@
       font-family:inherit;
       font-size:14px;
     }
-    textarea{
-      min-height:120px;
-      resize:vertical;
-    }
+    textarea{ min-height:120px; resize:vertical; }
     .btn{
       margin-top:10px;
       padding:10px 16px;
@@ -428,22 +385,14 @@
 
     @media (max-width:900px){
       .hero{ grid-template-columns:1fr; }
+      .hero-copy{ padding-right: 0; }
       .hero-visual{ min-height:40vh; }
-      .projects-layout,
-      .approach-layout,
-      .contact{
-        grid-template-columns:1fr;
-      }
-      #abordagem .approach-layout .grid{
-        justify-content:flex-start;
-      }
+      .projects-layout, .approach-layout, .contact{ grid-template-columns:1fr; }
+      #abordagem .approach-layout .grid{ justify-content:flex-start; }
       .nav{ flex-wrap:wrap; gap:8px; }
       nav a{ margin-left:10px; }
       .lang-switch{ margin-left:10px; }
-      .contact-left{
-        justify-content:flex-start;
-        gap:16px;
-      }
+      .contact-left{ justify-content:flex-start; gap:16px; }
     }
   </style>
 </head>
@@ -461,7 +410,6 @@
         <a href="#abordagem" data-i18n="nav.abordagem">Abordagem</a>
         <a href="#contatos" data-i18n="nav.contatos">Contatos</a>
 
-        <!-- Switch de idioma com imagens -->
         <button id="lang-switch" type="button" class="lang-switch is-pt" aria-label="Trocar idioma">
           <span class="lang-flag lang-pt" aria-hidden="true">
             <img src="assets/band_brasil.png" alt="BR">
@@ -475,7 +423,6 @@
     </div>
   </header>
 
-  <!-- 1) INÍCIO -->
   <section id="inicio">
     <div class="wrap hero">
       <div class="hero-copy">
@@ -486,16 +433,12 @@
         <p class="small" data-i18n="hero.small">
           Trabalhamos com uma metodologia proprietária de desenvolvimento de projetos de ciência de dados — LeanDS — o que garante entregas rápidas, constantes e o enquadramento correto para o seu problema de negócio.
         </p>
-        <a class="cta" href="#contatos" data-i18n="hero.cta">Fale com a Labarrère</a>
+        <a class="cta" href="#contatos" data-i18n="hero.cta">Fale com a consultoria</a>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="slide"></div>
-        <div class="slide"></div>
-      </div>
+      <div class="hero-visual" aria-hidden="true"></div>
     </div>
   </section>
 
-  <!-- 2) DADOS -->
   <section id="dados">
     <div class="wrap">
       <div class="subtitle-line">
@@ -526,7 +469,6 @@
     </div>
   </section>
 
-  <!-- 3) SERVIÇOS -->
   <section id="servicos">
     <div class="wrap">
       <div class="subtitle-line">
@@ -605,7 +547,6 @@
     </div>
   </section>
 
-  <!-- 4) PROJETOS -->
   <section id="projetos">
     <div class="wrap">
       <div class="subtitle-line">
@@ -638,15 +579,14 @@
         </div>
 
         <div class="proj-images" aria-hidden="true">
-          <img src="assets/sobre1.jpg" alt="">
-          <img src="assets/sobre2.jpg" alt="">
-          <img src="assets/sobre3.jpg" alt="">
+          <div class="slide"></div>
+          <div class="slide"></div>
+          <div class="slide"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5) ABORDAGEM -->
   <section id="abordagem">
     <div class="wrap">
       <div class="subtitle-line">
@@ -681,7 +621,6 @@
     </div>
   </section>
 
-  <!-- 6) CONTATOS -->
   <section id="contatos">
     <div class="wrap contact">
       <div class="contact-left">
@@ -689,16 +628,13 @@
           <div class="subtitle-line">
             <span data-i18n="contatos.subtitle">contatos</span>
           </div>
-          <h2 data-i18n="contatos.title">Fale com a Labarrère</h2>
+          <h2 data-i18n="contatos.title">Fale com a consultoria</h2>
           <p data-i18n="contatos.intro">
             Entre em contato para conversar sobre desafios de dados, IA e transformação digital na sua organização.
           </p>
           <p style="margin-top:12px; font-weight:bold;">
-            <span data-i18n="contatos.tel.label">Telefone / WhatsApp:</span>
-            <a href="tel:+5561999999999">(61) 99999-9999</a>
-          </p>
-          <p style="font-size:13px; opacity:.9;" data-i18n="contatos.tel.desc">
-            Atendemos via WhatsApp para facilitar o primeiro contato.
+            <span data-i18n="contatos.email.label">E-mail:</span>
+            <a href="mailto:henrique.luz@labarrereconsultoria.com">henrique.luz@labarrereconsultoria.com</a>
           </p>
         </div>
       </div>
@@ -717,16 +653,6 @@
           pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
         />
 
-        <label for="telefone" data-i18n="form.phone.label">Telefone (opcional)</label>
-        <input
-          id="telefone"
-          name="telefone"
-          type="tel"
-          placeholder="(DDD) 99999-9999"
-          maxlength="15"
-          pattern="^\(\d{2}\)\s?\d{4,5}-\d{4}$"
-        />
-
         <label for="msg" data-i18n="form.msg.label">Mensagem</label>
         <textarea id="msg" name="msg" placeholder="Conte rapidamente o contexto e o que você busca."></textarea>
 
@@ -742,13 +668,15 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // ANIMAÇÃO DE NÚMEROS (INDICADORES)
     const counters = document.querySelectorAll('.num');
     const ease = t => 1 - Math.pow(1 - t, 4);
+    
     function animateCount(el){
       const target = +el.dataset.count;
       const prefix = el.dataset.prefix || '';
       const suffix = el.dataset.suffix || '';
-      const dur = 1000;
+      const dur = 2500; // Mais devagar (2.5s)
       const start = performance.now();
 
       function tick(now){
@@ -765,64 +693,73 @@
       const io = new IntersectionObserver((entries) => {
         entries.forEach(e => {
           if(e.isIntersecting){
+            // Entrou na tela: anima
             e.target.querySelectorAll('.num').forEach(n => animateCount(n));
-            io.unobserve(e.target);
+          } else {
+            // Saiu da tela: reseta para 0 para animar novamente depois
+            e.target.querySelectorAll('.num').forEach(n => {
+              const prefix = n.dataset.prefix || '';
+              const suffix = n.dataset.suffix || '';
+              n.textContent = prefix + '0' + suffix;
+            });
           }
         });
-      }, { threshold: 0.35 });
+      }, { threshold: 0.25 }); // Threshold ajustado
       io.observe(stats);
     }
 
-    const HERO_SLIDES = [
-      'assets/alternada1.jpg',
-      'assets/alternada2.jpg',
-      'assets/alternada3.jpg',
-      'assets/alternada4.jpg'
-    ].filter(Boolean);
+    // CARROSSEL DE PROJETOS (Antigo carrossel da Hero)
+    const PROJ_SLIDES = [
+      'assets/sobre1.jpg',
+      'assets/sobre2.jpg',
+      'assets/sobre3.jpg'
+    ];
 
-    HERO_SLIDES.forEach(src => { const img = new Image(); img.src = src; });
+    // Pré-carregamento das imagens
+    PROJ_SLIDES.forEach(src => { const img = new Image(); img.src = src; });
 
-    const heroVisual = document.querySelector('.hero-visual');
-    let heroIdx = 0;
-    let heroA, heroB, heroTimer;
+    const projVisual = document.querySelector('.proj-images');
+    let projIdx = 0;
+    let projTimer;
 
-    if (heroVisual) {
-      const slides = heroVisual.querySelectorAll('.slide');
-      [heroA, heroB] = slides;
-
-      if (HERO_SLIDES.length > 0) {
-        heroA.style.backgroundImage = `url('${HERO_SLIDES[0]}')`;
-        heroA.classList.add('show');
-      }
-      if (HERO_SLIDES.length > 1) {
-        heroB.style.backgroundImage = `url('${HERO_SLIDES[1]}')`;
-      }
+    if (projVisual) {
+      const slides = projVisual.querySelectorAll('.slide');
+      
+      // Configurar backgrounds
+      slides.forEach((s, i) => {
+        if(PROJ_SLIDES[i]) s.style.backgroundImage = `url('${PROJ_SLIDES[i]}')`;
+      });
+      
+      // Mostrar o primeiro
+      slides[0].classList.add('show');
 
       const INTERVAL_MS = 3000;
 
-      function swapHero(){
-        if (HERO_SLIDES.length < 2) return;
-        const nextIdx = (heroIdx + 1) % HERO_SLIDES.length;
-        heroB.style.backgroundImage = `url('${HERO_SLIDES[nextIdx]}')`;
-        heroA.classList.remove('show');
-        heroB.classList.add('show');
-        [heroA, heroB] = [heroB, heroA];
-        heroIdx = nextIdx;
+      function swapProj(){
+        const currentSlide = slides[projIdx];
+        const nextIdx = (projIdx + 1) % slides.length;
+        const nextSlide = slides[nextIdx];
+
+        currentSlide.classList.remove('show');
+        nextSlide.classList.add('show');
+        
+        projIdx = nextIdx;
       }
 
-      function startHero(){ if(!heroTimer) heroTimer = setInterval(swapHero, INTERVAL_MS); }
-      function stopHero(){ if(heroTimer){ clearInterval(heroTimer); heroTimer = null; } }
+      function startProj(){ if(!projTimer) projTimer = setInterval(swapProj, INTERVAL_MS); }
+      function stopProj(){ if(projTimer){ clearInterval(projTimer); projTimer = null; } }
 
       const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (!prefersReduced.matches) startHero();
+      if (!prefersReduced.matches) startProj();
+      
       document.addEventListener('visibilitychange', () => {
-        if (document.hidden) stopHero(); else startHero();
+        if (document.hidden) stopProj(); else startProj();
       });
     }
 
+    // VALIDAÇÃO FORMULÁRIO
     const form = document.getElementById('contato-form');
     const emailInput = document.getElementById('email');
-    const telInput = document.getElementById('telefone');
 
     if (emailInput) {
       emailInput.addEventListener('input', () => {
@@ -834,32 +771,10 @@
       });
     }
 
-    if (telInput) {
-      telInput.addEventListener('input', (e) => {
-        let digits = e.target.value.replace(/\D/g, '').slice(0, 11);
-        if (digits.length <= 2) {
-          e.target.value = digits;
-          return;
-        }
-        const ddd = digits.slice(0, 2);
-        let rest = digits.slice(2);
-        if (rest.length > 5) {
-          e.target.value = `(${ddd}) ${rest.slice(0,5)}-${rest.slice(5,9)}`;
-        } else {
-          e.target.value = `(${ddd}) ${rest}`;
-        }
-      });
-    }
-
     if (form) {
       form.addEventListener('submit', (e) => {
         if (!emailInput.checkValidity()) {
           emailInput.reportValidity();
-          e.preventDefault();
-          return;
-        }
-        if (telInput.value && !telInput.checkValidity()) {
-          telInput.reportValidity();
           e.preventDefault();
           return;
         }
@@ -868,6 +783,7 @@
       });
     }
 
+    // INTERNACIONALIZAÇÃO (I18N)
     const I18N = {
       pt: {
         'nav.brand': 'Labarrère Consultoria',
@@ -878,13 +794,13 @@
         'nav.abordagem': 'Abordagem',
         'nav.contatos': 'Contatos',
 
-        'hero.title': 'Labarrère Consultoria',
+        'hero.title': 'Consultoria para o mundo dos dados',
         'hero.lead': 'Uma consultoria de transformação para o mundo da IA. Integramos nosso conhecimento em Dados, Tecnologia e Gestão para destravar o potencial da sua organização.',
         'hero.small': 'Trabalhamos com uma metodologia proprietária de desenvolvimento de projetos de ciência de dados — LeanDS — o que garante entregas rápidas, constantes e o enquadramento correto para o seu problema de negócio.',
-        'hero.cta': 'Fale com a Labarrère',
+        'hero.cta': 'Fale com a consultoria',
 
         'dados.subtitle': 'dados e resultados',
-        'dados.title': 'Consultoria para o mundo dos dados',
+        'dados.title': 'Indicadores de impacto',
         'dados.text': 'Trabalhamos com uma metodologia proprietária de desenvolvimento de projetos de ciência de dados - LeanDS - o que garante aos nossos clientes entregas rápidas e constantes, e o enquadramento correto para o seu problema de negócio.',
         'dados.stat1.label': 'Projetos executados',
         'dados.stat1.desc': 'Projetos de dados, IA e automação em diferentes setores.',
@@ -930,7 +846,7 @@
         'servicos.strategy.body': 'Definimos esquemas, regras de qualidade e políticas mínimas de governança para que o uso de dados cresça de forma sustentável.',
 
         'projetos.subtitle': 'casos de sucesso',
-        'projetos.title': 'Casos de sucesso',
+        'projetos.title': 'Projetos em destaque',
         'projetos.p1': 'Desenvolvemos para a Secretaria de Fazenda do Distrito Federal o Rating da Dívida Ativa: classificação baseada em Machine Learning para avaliar a perspectiva de recuperação de cada dívida.',
         'projetos.p2': 'O programa Negocia-DF, anunciado em outubro de 2025 pelo GDF, concede descontos a contribuintes com dívidas tributárias em dívida ativa.',
         'projetos.p3': 'O desconto é baseado no algoritmo desenvolvido pela Labarrère Consultoria.',
@@ -951,25 +867,22 @@
         'abordagem.card3.desc': 'Garantimos alinhamento com as áreas de negócio, governança leve e rituais que sustentam o uso contínuo das soluções.',
 
         'contatos.subtitle': 'contatos',
-        'contatos.title': 'Fale com a Labarrère',
+        'contatos.title': 'Fale com a consultoria',
         'contatos.intro': 'Entre em contato para conversar sobre desafios de dados, IA e transformação digital na sua organização.',
-        'contatos.tel.label': 'Telefone / WhatsApp:',
-        'contatos.tel.desc': 'Atendemos via WhatsApp para facilitar o primeiro contato.',
+        'contatos.email.label': 'E-mail:',
 
         'form.name.label': 'Nome',
         'form.email.label': 'E-mail',
-        'form.phone.label': 'Telefone (opcional)',
         'form.msg.label': 'Mensagem',
         'form.submit': 'Enviar mensagem',
         'form.name.placeholder': 'Seu nome',
         'form.email.placeholder': 'voce@exemplo.com',
-        'form.phone.placeholder': '(DDD) 99999-9999',
         'form.msg.placeholder': 'Conte rapidamente o contexto e o que você busca.',
 
         'footer.text': '© {year} Labarrère Consultoria — Todos os direitos reservados.'
       },
       en: {
-        'nav.brand': 'Labarrère Consulting',
+        'nav.brand': 'Labarrère Consultoria',
         'nav.inicio': 'Home',
         'nav.dados': 'Data',
         'nav.servicos': 'Services',
@@ -980,7 +893,7 @@
         'hero.title': 'Consulting for the data-driven world',
         'hero.lead': 'A consulting firm focused on AI transformation. We integrate expertise in Data, Technology and Management to unlock your organization\'s potential.',
         'hero.small': 'We use our proprietary LeanDS methodology for data science projects, ensuring fast, continuous deliveries and the right framing for your business problem.',
-        'hero.cta': 'Talk to Labarrère',
+        'hero.cta': 'Talk to us',
 
         'dados.subtitle': 'data and results',
         'dados.title': 'Impact indicators',
@@ -1050,22 +963,19 @@
         'abordagem.card3.desc': 'We ensure alignment with business areas, light governance and routines that sustain continuous use of the solutions.',
 
         'contatos.subtitle': 'contact',
-        'contatos.title': 'Talk to Labarrère',
+        'contatos.title': 'Talk to the consultancy',
         'contatos.intro': 'Get in touch to discuss data, AI and digital transformation challenges in your organization.',
-        'contatos.tel.label': 'Phone / WhatsApp:',
-        'contatos.tel.desc': 'We use WhatsApp to make the first contact easier.',
+        'contatos.email.label': 'E-mail:',
 
         'form.name.label': 'Name',
         'form.email.label': 'E-mail',
-        'form.phone.label': 'Phone (optional)',
         'form.msg.label': 'Message',
         'form.submit': 'Send message',
         'form.name.placeholder': 'Your name',
         'form.email.placeholder': 'you@example.com',
-        'form.phone.placeholder': '(Area) 99999-9999',
         'form.msg.placeholder': 'Briefly describe the context and what you are looking for.',
 
-        'footer.text': '© {year} Labarrère Consulting — All rights reserved.'
+        'footer.text': '© {year} Labarrère Consultoria — All rights reserved.'
       }
     };
 
@@ -1089,12 +999,10 @@
 
       const nome   = document.getElementById('nome');
       const email  = document.getElementById('email');
-      const tel    = document.getElementById('telefone');
       const msg    = document.getElementById('msg');
 
       if (nome)  nome.placeholder  = I18N[lang]['form.name.placeholder'];
       if (email) email.placeholder = I18N[lang]['form.email.placeholder'];
-      if (tel)   tel.placeholder   = I18N[lang]['form.phone.placeholder'];
       if (msg)   msg.placeholder   = I18N[lang]['form.msg.placeholder'];
 
       const langSwitchEl = document.getElementById('lang-switch');
